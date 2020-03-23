@@ -447,8 +447,7 @@ def onReturn(event):
     i = 0
     #Refresh the LastBuys and LastSells dict
     RefreshLastBuysSells()
-
-    Data.BuyPrice = float(Data.LastBuys['ETHUSDT'][0]['Price']) - (len(Data.LastBuys['ETHUSDT']) ** 1.3) * 0.0025 * float(Data.LastBuys['ETHUSDT'][0]['Price'])
+    Data.BuyPrice = float(Data.LastBuys['ETHUSDT'][0]['Price']) - (Data.Buy_multiplication_list[0] ** 1.3) * 0.0025 * float(Data.LastBuys['ETHUSDT'][0]['Price'])
     Data.SellPrice = 99999
     labelSellPrice.config(text='Prix de vente: ' + str(Data.SellPrice))
     labelBuyPrice.config(text='Prix de d achat: ' + str(Data.BuyPrice))
@@ -458,9 +457,9 @@ def onReturn(event):
     Acheter(prix=Data.BuyPrice, nb_achat=Data.Buys_Qty[len(Data.LastBuys['ETHUSDT'])-1])
     #Shadow 4% higher than start price
     Data.ShadowPrice = 1.025*Data.BuyPrice
-    Data.ShadowOrderId = client.order_limit_sell(symbol='ETHUSDT',
-                                                 quantity=round(0.1, 5),
-                                                 price=str(round(Data.ShadowPrice, 2)))
+    #Data.ShadowOrderId = client.order_limit_sell(symbol='ETHUSDT',
+    #                                             quantity=round(0.1, 5),
+    #                                             price=str(round(Data.ShadowPrice, 2)))
     e1.delete(0, 'end')
 
 def RefreshLastBuysSells():
@@ -548,7 +547,7 @@ def Start():
         # Regarder si la vente ou lachat a été filled
         Verif_Achat()
         Verif_Vente()
-        shadow_Sell()
+        #shadow_Sell()
         print(str(Data.LastBuys))
         print(str(Data.LastSells))
         print("ShadowSellPrice: {}".format(Data.ShadowPrice))
