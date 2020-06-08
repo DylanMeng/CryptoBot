@@ -151,17 +151,28 @@ def add_LastSelldic(Order):
     #Data.LastSells[Order['symbol']]['List'] = sorted(Data.LastSells[Order['symbol']]['List'], key= lambda i: i['Price'],reverse=True)
 
 def price_mean_2min():
-    mean = 0
 
     for pair in Data.LastBuys.keys():
 
-        Data.mean_tab_2min[pair][Data.mean_index_last] = Data.NowPrice[pair]
+        Data.mean_tab_2min[pair][Data.mean_2min_index_last] = Data.NowPrice[pair]
 
-        Data.mean2min[pair] -= 0.034483*Data.mean_tab_2min[pair][Data.mean_index_first]
-        Data.mean2min[pair] += 0.034483*Data.mean_tab_2min[pair][Data.mean_index_last]
+        Data.mean2min[pair] -= 0.034482759*Data.mean_tab_2min[pair][Data.mean_2min_index_first]
+        Data.mean2min[pair] += 0.034482759*Data.mean_tab_2min[pair][Data.mean_2min_index_last]
 
         Data.mean_index_first = (Data.mean_index_first + 1) % 30
         Data.mean_index_last = (Data.mean_index_last + 1) % 30
+
+def price_mean_30min():
+
+    for pair in Data.LastBuys.keys():
+
+        Data.mean_tab_30min[pair][Data.mean_30min_index_last] = Data.NowPrice[pair]
+
+        Data.mean30min[pair] -= 0.002227171*Data.mean_tab_30min[pair][Data.mean_30min_index_first]
+        Data.mean30min[pair] += 0.002227171*Data.mean_tab_30min[pair][Data.mean_30min_index_last]
+
+        Data.mean_30min_index_first = (Data.mean_30min_index_first + 1) % 450
+        Data.mean_30min_index_last = (Data.mean_30min_index_last + 1) % 450
 
 def order_filled(side, pair):
     if side == "Buy":
@@ -549,6 +560,7 @@ def Main():
         try:
             get_Prix()
             price_mean_2min()
+            price_mean_30min()
             get_NbCryp()
         except Timeout:
             # write event to logfile

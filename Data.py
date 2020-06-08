@@ -10,7 +10,7 @@ def init():
     global SellAllNowGain, BuyPrice, SellPrice, ShadowPrice, LastBuys, LastSells
     global nb_sell, nb_buy, nb_Timeout, nb_ConnectionError, nb_VIP, start, Fichier, Fichier_excel, Buys_Qty
     global BuyOrderId, SellOrderId, ShadowOrderId, Pairs_contraints, Buy_multiplication_list, Sell_multiplication_list, price_contraints, quantity_contraints
-    global Last_Agressivity, Agressivity, mean_index_first, mean_index_last, mean2min, mean_tab_2min
+    global Last_Agressivity, Agressivity, mean_2min_index_first, mean_2min_index_last, mean2min, mean_tab_2min, mean_30min_index_first, mean_30min_index_last, mean30min, mean_tab_30min
     TimeNow = datetime.today()
     TimeTirty = datetime.today()
 
@@ -98,11 +98,19 @@ def init():
 
     mean_tab_2min = {}
     mean_tab_2min['ETHUSDT'] = [0 for i in range(30)]
-    #mean_tab_2min['BTCUSDT'] = 30*[0]
-    mean_index_first = 0
-    mean_index_last = 29
+    #mean_tab_2min['BTCUSDT'] = [0 for i in range(30)]
+    mean_2min_index_first = 0
+    mean_2min_index_last = 29
     mean2min = {}
     mean2min['ETHUSDT'] = 0
+
+    mean_tab_30min = {}
+    mean_tab_30min['ETHUSDT'] = [0 for i in range(450)]
+    #mean_tab_2min['BTCUSDT'] = [0 for i in range(450)]
+    mean_30min_index_first = 0
+    mean_30min_index_last = 29
+    mean30min = {}
+    mean30min['ETHUSDT'] = 0
 
     SellAllNowGain = {}
     SellAllNowGain['ETHUSDT'] = 0
