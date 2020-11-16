@@ -159,8 +159,8 @@ def price_mean_2min():
         Data.mean2min[pair] -= 0.034482759*Data.mean_tab_2min[pair][Data.mean_2min_index_first]
         Data.mean2min[pair] += 0.034482759*Data.mean_tab_2min[pair][Data.mean_2min_index_last]
 
-        Data.mean_index_first = (Data.mean_index_first + 1) % 30
-        Data.mean_index_last = (Data.mean_index_last + 1) % 30
+        Data.mean_2min_index_first = (Data.mean_2min_index_first + 1) % 30
+        Data.mean_2min_index_last = (Data.mean_2min_index_last + 1) % 30
 
 def price_mean_30min():
 
